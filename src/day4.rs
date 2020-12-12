@@ -42,7 +42,9 @@ pub fn part2(input: &[HashMap<&str, &str>]) -> usize {
         .iter()
         .filter(|passport| {
             EXPECTED_FIELDS.iter().all(|k| passport.contains_key(k))
-            && passport.iter().all(|(k, v)| validate_field(k, v))
+            && passport.iter().all(|(k, v)| {
+                validate_field(k, v)
+            })
         })
         .count()
 }
@@ -60,7 +62,7 @@ fn validate_field(key: &str, value: &str) -> bool {
             value.parse::<u32>().ok().filter(|&year| year >= 2020 && year <= 2030).is_some()
         }
         "hgt" => {
-            let re = Regex::new(r"(\d)+(\w)+").unwrap();
+            let re = Regex::new(r"(\d+)(\w+)").unwrap();
             if let Some(caps) = re.captures(value) {
                 match (&caps[1], &caps[2]) {
                     (num, "cm") => {
@@ -76,18 +78,22 @@ fn validate_field(key: &str, value: &str) -> bool {
             }
         }
         "hcl" => {
-            let re = Regex::new(r"#[0-9a-f]{6})").unwrap();
+            let re = Regex::new(r"#[0-9a-f]{6}").unwrap();
             re.is_match(value)
         }
         "ecl" => {
             match value {
-                "amb" | "blu" | "gry" | "grn" | "hzl" | "oth" => true,
+                "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth" => true,
                 _ => false
             }
         }
         "pid" => {
             value.len() == 9 && value.chars().all(|c| c.is_ascii_digit())
         }
-        _ => false
+        "cid" => true,
+        _ => {
+            dbg!(key);
+            false
+        }
     }
 }
