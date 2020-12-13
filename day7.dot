@@ -1,4 +1,5 @@
 digraph {
+    graph [splines=true overlap=false];
     0 [ label = "\"striped white\"" ]
     1 [ label = "\"drab silver\"" ]
     2 [ label = "\"pale plum\"" ]

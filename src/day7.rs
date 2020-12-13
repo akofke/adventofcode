@@ -6,7 +6,8 @@ use nom::character::complete::digit1;
 use nom::branch::alt;
 use nom::multi::separated_list1;
 use petgraph::graphmap::DiGraphMap;
-use petgraph::visit::{Dfs, Reversed};
+use petgraph::visit::{Dfs, Reversed, DfsPostOrder};
+use nom::lib::std::collections::HashMap;
 
 pub fn parse(input: &str) -> DiGraphMap<&str, u32> {
     let mut graph = DiGraphMap::new();
@@ -38,8 +39,17 @@ pub fn part1(input: &DiGraphMap<&str, u32>) -> usize {
     count - 1
 }
 
-pub fn part2(input: &DiGraphMap<&str, u32>) -> usize {
-    0
+pub fn part2(graph: &DiGraphMap<&str, u32>) -> u32 {
+    let mut total_in_bag = HashMap::new();
+    let mut dfs = DfsPostOrder::new(graph, "shiny gold");
+    while let Some(node) = dfs.next(graph) {
+        let chilren_sum = graph
+            .edges(node)
+            .map(|(_from, to, &count)| count * (1 + total_in_bag[to]))
+            .sum::<u32>();
+        total_in_bag.insert(node, chilren_sum);
+    }
+    total_in_bag["shiny gold"]
 }
 
 fn bag(input: &str) -> IResult<&str, &str> {
