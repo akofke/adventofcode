@@ -8,6 +8,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 macro_rules! match_day {
     ($day_var:ident, $contents:expr, [ $( $d:ident ),* $(,)?]) => {
@@ -27,7 +28,7 @@ macro_rules! match_day {
 }
 
 fn main() -> anyhow::Result<()> {
-    let day = 7;
+    let day = 8;
 
     let contents = std::fs::read_to_string(format!("input/2020/day{}.txt", day))?;
     match_day!(day, contents, [
@@ -38,6 +39,7 @@ fn main() -> anyhow::Result<()> {
         day5,
         day6,
         day7,
+        day8,
     ]);
     Ok(())
 }
