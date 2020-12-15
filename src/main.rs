@@ -1,5 +1,6 @@
 #![feature(str_split_once)]
 #![feature(iterator_fold_self)]
+#![feature(slice_fill)]
 
 mod day1;
 mod day2;
