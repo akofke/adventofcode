@@ -26,7 +26,7 @@ pub fn part2(input: &[&str]) -> usize {
             group
                 .lines()
                 .map(|line| line.chars().collect::<HashSet<_>>())
-                .fold_first(|set, next_set| set.intersection(&next_set).copied().collect())
+                .reduce(|set, next_set| set.intersection(&next_set).copied().collect())
                 .unwrap()
                 .len()
         })

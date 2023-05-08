@@ -1,16 +1,5 @@
-[package]
-name = "adventofcode"
-version = "0.1.0"
-authors = ["Alex Kofke <akofke@gmail.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-anyhow = "1.0.34"
-regex = "1.4.2"
-parse-display = "0.4.0"
-ndarray = "0.14.0"
-bit-vec = "0.6.3"
-nom = "6.0.1"
-petgraph = "0.5.1"
+[workspace]
+members = [
+    "aoc",
+    "xtask",
+]
